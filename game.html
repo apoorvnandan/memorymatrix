@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<style>
+	
+	
+	</style>
+    <title>Memory Game</title>    
+  </head>
+  <body>
+  		<div class="instruct">
+			 <div class="heading"><u>Memory Match Game</u></div>
+			 <br><u>How to play</u> : Click two tiles to reveal the names hidden in them for a second. Find all matching pairs.<br>All names will be displayed for a few seconds at the start of the game.
+		</div>
+  		<div class="start">Start</div><div style="width:260px; margin-left:auto; margin-right:auto;"><div class="turn">Turn : 0</div>
+		<div class="turn">Score : 0</div></div>		
+  		<div class="board">
+			 <div class="row">
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  
+			 </div>
+			 <div class="row">
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  
+			 </div>
+			 <div class="row">
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  
+			 </div>
+			 <div class="row">
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  <div class="tile">0</div>
+			 	  
+			 </div>
+			 
+			 	   
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+		var names = ["ELEPHANT","ELEPHANT","LION","LION","TIGER","TIGER","DOG","DOG","CAT","CAT","MOUSE","MOUSE","SNAKE","SNAKE","WOLF","WOLF"];
+		var numTiles=16;
+		function shuffle(o){
+    			 for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    			 return o;
+				 };
+		var list1 = shuffle(names);
+		//var list2 = shuffle(list1);
+		var choice1 = -1,
+			choice2 = -1,
+			turns=0,
+			score=0,
+			match=0;
+			
+		$(".start").click(function() {
+									 list1=shuffle(names);
+									 $('.tile').click(false);
+									 choice1=-1;choice2=-1;
+									  var ele = document.getElementsByClassName('tile');
+									  for(var i=0;i<16;i++) {
+									 		 ele[i].innerHTML = list1[i];
+											 ele[i].style.color="White";
+										}
+									
+									 setTimeout( function() {
+									 var ele = document.getElementsByClassName('tile');
+									  for(var i=0;i<16;i++) {
+									 		 ele[i].innerHTML = "0";
+											 ele[i].style.color="transparent";
+										}
+									$('.tile').click(true); 
+									 },4000);
+									 
+									 var ele = document.getElementsByClassName('start');
+							   ele[0].innerHTML = "Restart";
+							   ele=document.getElementsByClassName('turn');
+							   ele[0].innerHTML="Turn : 0";
+							   ele[1].innerHTML="Score : 0";
+		
+		});
+			
+		$(".tile").click(function() {
+									var index = $(".tile").index(this);
+										
+										$(this).html(list1[index]);
+										
+									    $(this).css('color','White');
+										
+									
+									if(choice1==-1) choice1 = index;
+									else choice2 = index;
+									if(choice2!=-1) {
+													var ele=document.getElementsByClassName('turn');
+				 									ele[0].innerHTML = "Wait";
+													$('.tile').click(false);
+													setTimeout(function(){
+														  
+														  				  
+																		  checkMatch();
+																		  checkEnd();
+																		  $('.tile').click(true);									  					  
+									
+														  }, 1000);
+													
+									}
+		});
+		function checkMatch() {
+				 var ele=document.getElementsByClassName('tile');
+				 if(ele[choice1].innerHTML==ele[choice2].innerHTML){
+				 													score+=(20-turns)*10;
+																	match++;
+				 }
+				 else {
+				 	  var ele=document.getElementsByClassName('tile');
+																		  ele[choice1].innerHTML = "0";
+																		  ele[choice1].style.color="transparent";					
+																		  ele[choice2].innerHTML = "0";
+																		  ele[choice2].style.color="transparent";
+																		  
+				 }
+				 choice1=-1;
+				 choice2=-1;
+				 turns++;
+				 ele=document.getElementsByClassName('turn');
+				 ele[0].innerHTML = "Turn : "+turns;
+				 ele[1].innerHTML = "Score : "+score;
+		}
+		
+		function checkEnd() {
+		
+				 if(match==(numTiles/2)) {
+				 			   //score=(100-turns)*10;
+							   //alert("You won! Your score is "+score);
+							   var ele=document.getElementsByClassName('turn');
+							   ele[0].innerHTML = "YOU WIN!!";
+				 }		 
+		
+		}
+		</script>
+  </body>
+</html>
