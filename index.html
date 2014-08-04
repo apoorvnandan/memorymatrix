@@ -14,6 +14,23 @@
     <title>Memory Matrix</title>    
   </head>
   <body>
+  	<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '{your-app-id}',
+          xfbml      : true,
+          version    : 'v2.0'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
   		<div class="instruct">
 			 <div class="heading"><u>Memory Matrix</u></div>
 			 <br><u>How to play</u> : Click two tiles to reveal the names hidden in them for a second. Find all matching pairs.<br>All names will be displayed for a few seconds at the start of the game.
@@ -52,7 +69,7 @@
 			 
 			 	   
 		</div>
-		
+		<div class="fb-like" data-href="https://apoorvnandan.github.io/memorymatrix/" data-width="100" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>
 		var names = ["ELEPHANT","ELEPHANT","LION","LION","TIGER","TIGER","DOG","DOG","CAT","CAT","MOUSE","MOUSE","SNAKE","SNAKE","WOLF","WOLF"];
